@@ -44,3 +44,49 @@ class Solution:
     
     def buildArray(self, nums: List[int]) -> List[int]:
         return zero_based_permutation(nums)
+OR
+class Solution:
+    
+    def buildArray(self, nums: List[int]) -> List[int]:
+        return [nums[i] for i in nums]
+Q3)1929. Concatenation of Array
+Given an integer array nums of length n, you want to create an array ans of length 2n where ans[i] == nums[i] and ans[i + n] == nums[i] for 0 <= i < n (0-indexed).
+Specifically, ans is the concatenation of two nums arrays.
+Return the array ans.
+Example 1:
+Input: nums = [1,2,1]
+Output: [1,2,1,1,2,1]
+Explanation: The array ans is formed as follows:
+- ans = [nums[0],nums[1],nums[2],nums[0],nums[1],nums[2]]
+- ans = [1,2,1,1,2,1]
+Sol)
+def concatenation_of_array(nums):
+    ans=nums
+    for i in range(0,len(nums)):
+        ans.append(nums[i])
+    return ans
+class Solution:
+    def getConcatenation(self, nums: List[int]) -> List[int]:
+        return concatenation_of_array(nums)
+OR
+class Solution:
+    def getConcatenation(self, nums: List[int]) -> List[int]:
+        return nums*2
+Q4)1480. Running Sum of 1d Array
+Given an array nums. We define a running sum of an array as runningSum[i] = sum(nums[0]…nums[i]).
+Return the running sum of nums.
+Example 1:
+Input: nums = [1,2,3,4]
+Output: [1,3,6,10]
+SOl)
+def running_sum_of_1d_array(nums):
+    
+    b=[]
+    b.append(nums[0])
+    for i in range(0,len(nums)-1):
+        b.append(b[i]+nums[i+1])
+    return b
+
+class Solution:
+    def runningSum(self, nums: List[int]) -> List[int]:
+        return running_sum_of_1d_array(nums)
