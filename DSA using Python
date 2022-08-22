@@ -263,9 +263,45 @@ class Solution:
             b.append(count)
             count=0
         return b
-Q12)
-
-
+Q12)1313. Decompress Run-Length Encoded List
+We are given a list nums of integers representing a list compressed with run-length encoding.
+Consider each adjacent pair of elements [freq, val] = [nums[2*i], nums[2*i+1]] (with i >= 0).  For each such pair, there are freq elements with value val concatenated in a sublist. Concatenate all the sublists from left to right to generate the decompressed list.
+Return the decompressed list.
+Example 1:
+Input: nums = [1,2,3,4]
+Output: [2,4,4,4]
+Sol)
+class Solution:
+    def decompressRLElist(self, nums: List[int]) -> List[int]:
+        b=[]
+        for i in range(0,len(nums),2):
+            a=nums[i]
+            while a>0:
+                b.append(nums[i+1])
+                a-=1
+        return b
+OR            
+class Solution:
+    def decompressRLElist(self, nums: List[int]) -> List[int]:
+        L, A = len(nums), []
+        for i in range(0,L,2):
+            A.extend(nums[i]*[nums[i+1]])
+        return A
+Q13)1720. Decode XORed Array
+There is a hidden integer array arr that consists of n non-negative integers.
+It was encoded into another integer array encoded of length n - 1, such that encoded[i] = arr[i] XOR arr[i + 1]. For example, if arr = [1,0,2,1], then encoded = [1,2,3].
+You are given the encoded array. You are also given an integer first, that is the first element of arr, i.e. arr[0].
+Return the original array arr. It can be proved that the answer exists and is unique.
+Example 1:
+Input: encoded = [1,2,3], first = 1
+Output: [1,0,2,1]		
+Sol)
+class Solution:
+    def decode(self, encoded: List[int], first: int) -> List[int]:
+        r = [first]
+        for i in encoded:
+            r.append(r[-1]^i)
+        return r
 
 
 
