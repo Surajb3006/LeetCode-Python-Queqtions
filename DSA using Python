@@ -189,10 +189,81 @@ class Solution:
                 if nums[i]==nums[j]:
                     count+=1
         return count
-
-
-
-
+OR
+class Solution:
+    def numIdenticalPairs(self, nums: List[int]) -> int:
+        
+        # number of good pairs
+        repeat = {}
+        num = 0
+        
+        # for every element in nums
+        for v in nums:
+            
+            # number of repeated digits
+            if v in repeat:
+                
+                # count number of pairs based on duplicate values
+                if repeat[v] == 1:
+                    num += 1
+                else:
+                    num += repeat[v]
+                
+                # increment the number of counts
+                repeat[v] += 1
+            # number has not been seen before
+            else:
+                repeat[v] = 1
+        # return
+        return num
+Q10)1431. Kids With the Greatest Number of Candies
+There are n kids with candies. You are given an integer array candies, where each candies[i] represents the number of candies the ith kid has, and an integer extraCandies, denoting the number of extra candies that you have.
+Return a boolean array result of length n, where result[i] is true if, after giving the ith kid all the extraCandies, they will have the greatest number of candies among all the kids, or false otherwise.
+Note that multiple kids can have the greatest number of candies.
+Example 1:
+Input: candies = [2,3,5,1,3], extraCandies = 3
+Output: [true,true,true,false,true] 
+Sol)
+class Solution:
+	def kidsWithCandies(self, candies: List[int], extraCandies: int) -> List[bool]:
+	    b=[]
+	    for i in range (len(candies)):
+	        if candies[i]+extraCandies>=max(candies):
+	            b.append(True)
+	        else:
+	            b.append(False)
+	    return b
+Q11)1365. How Many Numbers Are Smaller Than the Current Number
+Given the array nums, for each nums[i] find out how many numbers in the array are smaller than it. That is, for each nums[i] you have to count the number of valid j's such that j != i and nums[j] < nums[i].
+Return the answer in an array.
+Example 1:
+Input: nums = [8,1,2,2,3]
+Output: [4,0,1,1,3]
+Sol)
+class Solution:
+    def smallerNumbersThanCurrent(self,nums: List[int]) -> List[int]:
+        sortnums=sorted(nums)
+        mapp={}
+        b=[]
+        for i in range(len(sortnums)):
+            if sortnums[i] not in mapp:
+                mapp[sortnums[i]]=i
+        for i in range (len(nums)):
+            b.append(mapp[nums[i]])
+        return b
+OR
+class Solution:
+    def smallerNumbersThanCurrent(self, nums: List[int]) -> List[int]:
+        count=0
+        b=[]
+        for i in range(len(nums)):
+            for j in range(0,len(nums)):
+                if nums[i]>nums[j]:
+                    count+=1
+            b.append(count)
+            count=0
+        return b
+Q12)
 
 
 
