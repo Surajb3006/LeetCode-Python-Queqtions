@@ -416,3 +416,87 @@ class Solution:
     def countMatches(self, items: List[List[str]], ruleKey: str, ruleValue: str) -> int:
         ruleIndex = ['type', 'color', 'name'].index(ruleKey)
         return sum(map(lambda x: x == ruleValue, [item[ruleIndex] for item in items]))
+Q18)2367. Number of Arithmetic Triplets
+You are given a 0-indexed, strictly increasing integer array nums and a positive integer diff. A triplet (i, j, k) is an arithmetic triplet if the following conditions are met:
+i < j < k,
+nums[j] - nums[i] == diff, and
+nums[k] - nums[j] == diff.
+Return the number of unique arithmetic triplets.
+Example 1:
+Input: nums = [0,1,4,6,7,10], diff = 3
+Output: 2
+Explanation:
+(1, 2, 4) is an arithmetic triplet because both 7 - 4 == 3 and 4 - 1 == 3.
+(2, 4, 5) is an arithmetic triplet because both 10 - 7 == 3 and 7 - 4 == 3.
+Sol)
+class Solution:
+    def arithmeticTriplets(self, nums: List[int], diff: int) -> int:
+        
+        ans = 0
+        n = len(nums)
+        for i in range(n):
+            if nums[i] + diff in nums and nums[i] + 2 * diff in nums:
+                ans += 1
+        
+        return ans
+Q19)2373. Largest Local Values in a Matrix
+You are given an n x n integer matrix grid.
+Generate an integer matrix maxLocal of size (n - 2) x (n - 2) such that:
+maxLocal[i][j] is equal to the largest value of the 3 x 3 matrix in grid centered around row i + 1 and column j + 1.
+In other words, we want to find the largest value in every contiguous 3 x 3 matrix in grid.
+Return the generated matrix.
+Example 1:
+Input: grid = [[9,9,8,1],[5,6,2,6],[8,2,6,4],[6,2,2,2]]
+Output: [[9,9],[8,6]]
+Explanation: The diagram above shows the original matrix and the generated matrix.
+Notice that each value in the generated matrix corresponds to the largest value of a contiguous 3 x 3 matrix in grid.
+Example 2:
+Input: grid = [[1,1,1,1,1],[1,1,1,1,1],[1,1,2,1,1],[1,1,1,1,1],[1,1,1,1,1]]
+Output: [[2,2,2],[2,2,2],[2,2,2]]
+Explanation: Notice that the 2 is contained within every contiguous 3 x 3 matrix in grid.
+Sol)
+class Solution:
+    def largestLocal(self, grid: List[List[int]]) -> List[List[int]]:
+
+        n = len(grid)
+        ans = []
+
+        for i in range(n - 2):
+            res = []
+
+            for j in range(n - 2):
+                k = []
+                k.append(grid[i][j])
+                k.append(grid[i][j + 1])
+                k.append(grid[i][j + 2])
+                k.append(grid[i + 1][j])
+                k.append(grid[i + 1][j + 1])
+                k.append(grid[i + 1][j + 2])
+                k.append(grid[i + 2][j])
+                k.append(grid[i + 2][j + 1])
+                k.append(grid[i + 2][j + 2])
+                m = max(k)
+                res.append(m)
+
+            ans.append(res)
+        
+        return ans
+OR
+
+class Solution:
+    def largestLocal(self, grid: List[List[int]]) -> List[List[int]]:
+	
+        n = len(grid)-2
+        ans = [[0]*n for _ in range(n)]
+
+        for i in range(n):
+            for j in range(n):
+                ans[i][j] = max(chain(grid[i  ][j:j+3], 
+                                      grid[i+1][j:j+3],
+                                      grid[i+2][j:j+3]))
+        
+		return  ans
+
+
+
+
