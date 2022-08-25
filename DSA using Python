@@ -496,7 +496,172 @@ class Solution:
                                       grid[i+2][j:j+3]))
         
 		return  ans
+Q20)1588. Sum of All Odd Length Subarrays
+Easy
 
+Given an array of positive integers arr, return the sum of all possible odd-length subarrays of arr.
+A subarray is a contiguous subsequence of the array.
+Example 1:
+Input: arr = [1,4,2,5,3]
+Output: 58
+Explanation: The odd-length subarrays of arr and their sums are:
+[1] = 1
+[4] = 4
+[2] = 2
+[5] = 5
+[3] = 3
+[1,4,2] = 7
+[4,2,5] = 11
+[2,5,3] = 10
+[1,4,2,5,3] = 15
+If we add all these together we get 1 + 4 + 2 + 5 + 3 + 7 + 11 + 10 + 15 = 58		
+Sol)
+class Solution:
+    def sumOddLengthSubarrays(self, arr: List[int]) -> int:
+        # corner case
+        
+        res = 0; freq = 0; n = len(arr)
+        for i in range(n):
+            freq = freq-(i+1)//2+(n-i+1)//2
+            res += freq*arr[i]
+        return res
+Q21)804. Unique Morse Code Words
+International Morse Code defines a standard encoding where each letter is mapped to a series of dots and dashes, as follows:
+'a' maps to ".-",
+'b' maps to "-...",
+'c' maps to "-.-.", and so on.
+For convenience, the full table for the 26 letters of the English alphabet is given below:
+[".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."]
+Given an array of strings words where each word can be written as a concatenation of the Morse code of each letter.
+For example, "cab" can be written as "-.-..--...", which is the concatenation of "-.-.", ".-", and "-...". We will call such a concatenation the transformation of a word.
+Return the number of different transformations among all words we have.
+Example 1:
+Input: words = ["gin","zen","gig","msg"]
+Output: 2
+Explanation: The transformation of each word is:
+"gin" -> "--...-."
+"zen" -> "--...-."
+"gig" -> "--...--."
+"msg" -> "--...--."
+There are 2 different transformations: "--...-." and "--...--.".
+Sol)
+class Solution:
+    def uniqueMorseRepresentations(self, words: List[str]) -> int:
+#         O(n*m) || O(n)
+        hashMap = {'a': '.-', 'b': '-...', 'c': '-.-.', 'd': '-..', 'e': '.', 'f': '..-.', 'g': '--.', 'h': '....', 'i': '..', 'j': '.---', 'k': '-.-', 'l': '.-..', 'm': '--', 'n': '-.', 'o': '---', 'p': '.--.', 'q': '--.-', 'r': '.-.', 's': '...', 't': '-', 'u': '..-', 'v': '...-', 'w': '.--', 'x': '-..-', 'y': '-.--', 'z': '--..'}
+            
+        seen = set()
+        for word in words:
+            newList = []
+            for code in word:
+                newList.append(hashMap[code])
+            seen.add(''.join(newList))
 
+        return len(seen)
+Q22)2037. Minimum Number of Moves to Seat Everyone
+There are n seats and n students in a room. You are given an array seats of length n, where seats[i] is the position of the ith seat. You are also given the array students of length n, where students[j] is the position of the jth student.
+You may perform the following move any number of times:
+Increase or decrease the position of the ith student by 1 (i.e., moving the ith student from position x to x + 1 or x - 1)
+Return the minimum number of moves required to move each student to a seat such that no two students are in the same seat.
+Note that there may be multiple seats or students in the same position at the beginning.
+Example 1:
+Input: seats = [3,1,5], students = [2,7,4]
+Output: 4
+Explanation: The students are moved as follows:
+- The first student is moved from from position 2 to position 1 using 1 move.
+- The second student is moved from from position 7 to position 5 using 2 moves.
+- The third student is moved from from position 4 to position 3 using 1 move.
+In total, 1 + 2 + 1 = 4 moves were used.
+Sol)
+class Solution:
+    def minMovesToSeat(self, seats: List[int], students: List[int]) -> int:
+        total_moves = 0 # taking a int variable to store the value
+        sorted_seats = sorted(seats) # sorting the seat list
+        sorted_students = sorted(students) #sorting the student list
+        
+        diff_1 = [] # taking empty list for storing difference of both the list
+        for i in range(len(seats)):
+            diff = abs(sorted_seats[i] - sorted_students[i]) # calculating diff of both the list elements, to calculate numbers of move. 
+            diff_1.append(diff) # appending the Difference to the empty list declared by us. 
+        
+        for i in diff_1: # loop for traversing the diff of elems from both the lists.
+            total_moves += i # adding them to calculate the moves. 
+        
+        return total_moves
+		"""
+        Short form of above solution:-
+        """
+        #first sort both the lists
+        seats.sort() 
+        students.sort()
+        
+        res = 0 # variable to store the result
+        
+        for i in range(len(seats)): 
+            res += abs(students[i] - seats[i]) # calculating diff of both the list and adding it to the variable , rather then adding it to the list, and then to traverse that list for the total moves.
+            
+        return res
+Q23)2006. Count Number of Pairs With Absolute Difference K
+Given an integer array nums and an integer k, return the number of pairs (i, j) where i < j such that |nums[i] - nums[j]| == k.
+The value of |x| is defined as:
+x if x >= 0.
+-x if x < 0.
+Example 1:
+Input: nums = [1,2,2,1], k = 1
+Output: 4
+Explanation: The pairs with an absolute difference of 1 are:
+- [1,2,2,1]
+- [1,2,2,1]
+- [1,2,2,1]
+- [1,2,2,1]
+Sol)
+class Solution:
+    def countKDifference(self, nums: List[int], k: int) -> int:
+         nums_dict, count = {}, 0
+        for num in nums:
+            if num not in nums_dict:
+                nums_dict[num] = 1
+            else:
+                nums_dict[num] += 1
 
-
+        for num in nums:
+            if num + k in nums_dict:
+                count += nums_dict[num + k]
+        return count
+Q24)1662. Check If Two String Arrays are Equivalent
+Given two string arrays word1 and word2, return true if the two arrays represent the same string, and false otherwise.
+A string is represented by an array if the array elements concatenated in order forms the string.
+Example 1:
+Input: word1 = ["ab", "c"], word2 = ["a", "bc"]
+Output: true
+Explanation:
+word1 represents string "ab" + "c" -> "abc"
+word2 represents string "a" + "bc" -> "abc"
+The strings are the same, so return true.
+Sol)class Solution:
+    def arrayStringsAreEqual(self, word1: List[str], word2: List[str]) -> bool:
+        return ''.join(word1) == ''.join(word2)
+Or
+class Solution:
+    def arrayStringsAreEqual(self, word1: List[str], word2: List[str]) -> bool:
+        return ''.join(word1) == ''.join(word2)
+Q25)1684. Count the Number of Consistent Strings
+You are given a string allowed consisting of distinct characters and an array of strings words. A string is consistent if all characters in the string appear in the string allowed.
+Return the number of consistent strings in the array words.
+Example 1:
+Input: allowed = "ab", words = ["ad","bd","aaab","baa","badab"]
+Output: 2
+Explanation: Strings "aaab" and "baa" are consistent since they only contain characters 'a' and 'b'.
+Sol)
+class Solution:
+    def countConsistentStrings(self, allowed: str, words: List[str]) -> int:
+        allowed = set(allowed)
+        count = 0
+        
+        for word in words:
+            for letter in word:
+                if letter not in allowed:
+                    count += 1
+                    break
+        
+        return len(words) - count
