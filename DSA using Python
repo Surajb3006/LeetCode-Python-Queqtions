@@ -748,3 +748,49 @@ There are 4 pairs that meet all the requirements:
 - nums[2] == nums[3], and 2 * 3 == 6, which is divisible by 2.
 - nums[2] == nums[4], and 2 * 4 == 8, which is divisible by 2.
 - nums[3] == nums[4], and 3 * 4 == 12, which is divisible by 2.
+Sol)
+class Solution:
+    def countPairs(self, nums: List[int], k: int) -> int:
+        count=0
+        for i in range(len(nums)):
+            for j in range(i+1,len(nums)):
+                if nums[i]==nums[j] and (i*j)%k == 0:
+                    count+=1
+        return count
+Q30)832. Flipping an Image
+Given an n x n binary matrix image, flip the image horizontally, then invert it, and return the resulting image.
+To flip an image horizontally means that each row of the image is reversed.
+For example, flipping [1,1,0] horizontally results in [0,1,1].
+To invert an image means that each 0 is replaced by 1, and each 1 is replaced by 0.
+For example, inverting [0,1,1] results in [1,0,0].
+Example 1:
+Input: image = [[1,1,0],[1,0,1],[0,0,0]]
+Output: [[1,0,0],[0,1,0],[1,1,1]]
+Explanation: First reverse each row: [[0,1,1],[1,0,1],[0,0,0]].
+Then, invert the image: [[1,0,0],[0,1,0],[1,1,1]]
+Sol)
+class Solution:
+    def flipAndInvertImage(self, image: List[List[int]]) -> List[List[int]]:
+        for i in range(len(image)):
+            image[i].reverse()
+            for j in range(len(image[i])):
+                if image[i][j]==1:
+                    image[i][j]=0
+                else:
+                    image[i][j]=1
+        return image
+Or
+class Solution:
+    def flipAndInvertImage(self, A):
+        res = []
+        d = {
+            0:1,
+            1:0
+        }
+        for arr in A:
+            res.append(list(map(lambda x: d[x], arr[::-1])))
+        return res          
+Or
+class Solution:
+    def flipAndInvertImage(self, A):
+        return [[1^i for i in arr[::-1]] for arr in A]
