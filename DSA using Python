@@ -515,7 +515,29 @@ Explanation: The odd-length subarrays of arr and their sums are:
 [2,5,3] = 10
 [1,4,2,5,3] = 15
 If we add all these together we get 1 + 4 + 2 + 5 + 3 + 7 + 11 + 10 + 15 = 58		
+
 Sol)
+class Solution:
+    def sumOddLengthSubarrays(self, arr: List[int]) -> int:
+        b=0
+        for i in range(1,len(arr)+1,2):
+            for j in range(len(arr)):
+                if j+i<=len(arr):
+                    b=b+sum(arr[j:i+j])
+        return b
+OR
+class Solution:
+    def sumOddLengthSubarrays(self, arr: List[int]) -> int:
+        n=1
+        b=[]
+        while n<=len(arr):
+            for i in range(len(arr)):
+                if i+n<=len(arr):
+                    b.extend(arr[i:i+n])
+                
+            n=n+2
+        return sum(b)
+Or
 class Solution:
     def sumOddLengthSubarrays(self, arr: List[int]) -> int:
         # corner case
@@ -547,17 +569,30 @@ There are 2 different transformations: "--...-." and "--...--.".
 Sol)
 class Solution:
     def uniqueMorseRepresentations(self, words: List[str]) -> int:
-#         O(n*m) || O(n)
-        hashMap = {'a': '.-', 'b': '-...', 'c': '-.-.', 'd': '-..', 'e': '.', 'f': '..-.', 'g': '--.', 'h': '....', 'i': '..', 'j': '.---', 'k': '-.-', 'l': '.-..', 'm': '--', 'n': '-.', 'o': '---', 'p': '.--.', 'q': '--.-', 'r': '.-.', 's': '...', 't': '-', 'u': '..-', 'v': '...-', 'w': '.--', 'x': '-..-', 'y': '-.--', 'z': '--..'}
-            
-        seen = set()
+        
+        codes = [".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.", "---",
+             ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--.."]
+        
+        res = set()
         for word in words:
-            newList = []
-            for code in word:
-                newList.append(hashMap[code])
-            seen.add(''.join(newList))
+            
+            m = []          
+            for ch in word:
+                m.append(codes[ord(ch) - 97])
+            res.add("".join(m))
+        return len(res)
+OR
+def uniqueMorseRepresentations(self, words: List[str]) -> int:
+	morse_code_array = [".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."]
 
-        return len(seen)
+	result = set()
+	for word in words:
+		word = word.lower()
+		transformations = ""
+		for chr in word:
+			transformations += morse_code_array[ord(chr) - 97]
+		result.add(transformations)
+	return len(result)
 Q22)2037. Minimum Number of Moves to Seat Everyone
 There are n seats and n students in a room. You are given an array seats of length n, where seats[i] is the position of the ith seat. You are also given the array students of length n, where students[j] is the position of the jth student.
 You may perform the following move any number of times:
@@ -575,32 +610,15 @@ In total, 1 + 2 + 1 = 4 moves were used.
 Sol)
 class Solution:
     def minMovesToSeat(self, seats: List[int], students: List[int]) -> int:
-        total_moves = 0 # taking a int variable to store the value
-        sorted_seats = sorted(seats) # sorting the seat list
-        sorted_students = sorted(students) #sorting the student list
-        
-        diff_1 = [] # taking empty list for storing difference of both the list
-        for i in range(len(seats)):
-            diff = abs(sorted_seats[i] - sorted_students[i]) # calculating diff of both the list elements, to calculate numbers of move. 
-            diff_1.append(diff) # appending the Difference to the empty list declared by us. 
-        
-        for i in diff_1: # loop for traversing the diff of elems from both the lists.
-            total_moves += i # adding them to calculate the moves. 
-        
-        return total_moves
-		"""
-        Short form of above solution:-
-        """
-        #first sort both the lists
-        seats.sort() 
+        seats.sort()
         students.sort()
-        
-        res = 0 # variable to store the result
-        
-        for i in range(len(seats)): 
-            res += abs(students[i] - seats[i]) # calculating diff of both the list and adding it to the variable , rather then adding it to the list, and then to traverse that list for the total moves.
+        b=0
+        for i,j in zip(seats,students):
+            a=abs(i-j)
+            b=b+a
             
-        return res
+        return b
+	
 Q23)2006. Count Number of Pairs With Absolute Difference K
 Given an integer array nums and an integer k, return the number of pairs (i, j) where i < j such that |nums[i] - nums[j]| == k.
 The value of |x| is defined as:
@@ -628,6 +646,18 @@ class Solution:
             if num + k in nums_dict:
                 count += nums_dict[num + k]
         return count
+OR
+class Solution:
+    def countKDifference(self, nums: List[int], k: int) -> int:
+        count = 0
+        n = len(nums)
+
+        for i in range(n):
+            for j in range(i + 1, n):
+                if abs(nums[i] - nums[j]) == k:
+                    count += 1
+                    
+        return count
 Q24)1662. Check If Two String Arrays are Equivalent
 Given two string arrays word1 and word2, return true if the two arrays represent the same string, and false otherwise.
 A string is represented by an array if the array elements concatenated in order forms the string.
@@ -644,7 +674,13 @@ Sol)class Solution:
 Or
 class Solution:
     def arrayStringsAreEqual(self, word1: List[str], word2: List[str]) -> bool:
-        return ''.join(word1) == ''.join(word2)
+        a="".join(word1)
+        b="".join(word2)
+        if a==b:
+            return True
+        else:
+            return False
+        
 Q25)1684. Count the Number of Consistent Strings
 You are given a string allowed consisting of distinct characters and an array of strings words. A string is consistent if all characters in the string appear in the string allowed.
 Return the number of consistent strings in the array words.
