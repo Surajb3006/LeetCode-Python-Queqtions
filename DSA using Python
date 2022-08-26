@@ -665,3 +665,86 @@ class Solution:
                     break
         
         return len(words) - count
+Q26)1816. Truncate Sentence
+A sentence is a list of words that are separated by a single space with no leading or trailing spaces. Each of the words consists of only uppercase and lowercase English letters (no punctuation).
+For example, "Hello World", "HELLO", and "hello world hello world" are all sentences.
+You are given a sentence s and an integer k. You want to truncate s such that it contains only the first k words. Return s after truncating it.
+Example 1:
+Input: s = "Hello how are you Contestant", k = 4
+Output: "Hello how are you"
+Explanation:
+The words in s are ["Hello", "how" "are", "you", "Contestant"].
+The first 4 words are ["Hello", "how", "are", "you"].
+Hence, you should return "Hello how are you"
+Sol)
+class Solution:
+    def truncateSentence(self, s: str, k: int) -> str:
+        words = s.split(" ")
+        return " ".join(words[0:k])
+Q27)1913. Maximum Product Difference Between Two Pairs
+The product difference between two pairs (a, b) and (c, d) is defined as (a * b) - (c * d).
+For example, the product difference between (5, 6) and (2, 7) is (5 * 6) - (2 * 7) = 16.
+Given an integer array nums, choose four distinct indices w, x, y, and z such that the product difference between pairs (nums[w], nums[x]) and (nums[y], nums[z]) is maximized.
+Return the maximum such product difference.
+Example 1:
+Input: nums = [5,6,2,7,4]
+Output: 34
+Explanation: We can choose indices 1 and 3 for the first pair (6, 7) and indices 2 and 4 for the second pair (2, 4).
+The product difference is (6 * 7) - (2 * 4) = 34.
+Sol)
+class Solution:
+    def maxProductDifference(self, nums: List[int]) -> int:
+        nums.sort()
+        c=((nums[-1]*nums[-2])-(nums[0]*nums[1]))
+        return c
+Or
+class Solution(object):
+    def maxProductDifference(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        a = max(nums)
+        nums.remove(a)
+        b = max(nums)
+        
+        c = min(nums)
+        nums.remove(c)
+        d = min(nums)
+        
+        return (a * b) - (c * d)
+Q28)1534. Count Good Triplets
+Given an array of integers arr, and three integers a, b and c. You need to find the number of good triplets.
+A triplet (arr[i], arr[j], arr[k]) is good if the following conditions are true:
+0 <= i < j < k < arr.length
+|arr[i] - arr[j]| <= a
+|arr[j] - arr[k]| <= b
+|arr[i] - arr[k]| <= c
+Where |x| denotes the absolute value of x.
+Return the number of good triplets.
+Example 1:
+Input: arr = [3,0,1,1,9,7], a = 7, b = 2, c = 3
+Output: 4
+Explanation: There are 4 good triplets: [(3,0,1), (3,0,1), (3,1,1), (0,1,1)].
+Sol)
+class Solution:
+    def countGoodTriplets(self, arr: List[int], a: int, b: int, c: int) -> int:
+        
+        count=0
+        for i in range(len(arr)):
+            for j in range(i+1,len(arr)):
+                for k in range(j+1,len(arr)):
+                    if abs(arr[i] - arr[j]) <= a and abs(arr[j] - arr[k]) <= b and abs(arr[i] - arr[k]) <= c:
+                        count +=1
+        return count
+Q29)2176. Count Equal and Divisible Pairs in an Array.
+Given a 0-indexed integer array nums of length n and an integer k, return the number of pairs (i, j) where 0 <= i < j < n, such that nums[i] == nums[j] and (i * j) is divisible by k.
+Example 1:
+Input: nums = [3,1,2,2,2,1,3], k = 2
+Output: 4
+Explanation:
+There are 4 pairs that meet all the requirements:
+- nums[0] == nums[6], and 0 * 6 == 0, which is divisible by 2.
+- nums[2] == nums[3], and 2 * 3 == 6, which is divisible by 2.
+- nums[2] == nums[4], and 2 * 4 == 8, which is divisible by 2.
+- nums[3] == nums[4], and 3 * 4 == 12, which is divisible by 2.
