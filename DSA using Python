@@ -988,6 +988,13 @@ Explanation: The altitudes are [0,-5,-4,1,1,-6]. The highest is 1.
 Sol)
 class Solution(object):
     def largestAltitude(self, gain):
+        b=[0]
+        for i in range(len(gain)):
+            b.append(b[i]+gain[i])
+        return max(b)
+OR
+class Solution(object):
+    def largestAltitude(self, gain):
         """
         :type gain: List[int]
         :rtype: int
