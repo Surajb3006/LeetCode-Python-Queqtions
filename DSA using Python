@@ -900,6 +900,16 @@ class Solution(object):
                 second = max( number, second)
         
         return (first - 1) * (second - 1)
+OR
+class Solution(object):
+    def maxProduct(self, nums):
+        nums.sort()
+        c=nums[-1]
+        b=nums[-2]
+        c=c-1
+        b=b-1
+        a=c*b
+        return a
 Q34)1863. Sum of All Subset XOR Totals
 The XOR total of an array is defined as the bitwise XOR of all its elements, or 0 if the array is empty.
 For example, the XOR total of the array [2,5,6] is 2 XOR 5 XOR 6 = 1.
@@ -935,6 +945,18 @@ Output: 3
 Explanation: The largest squares you can get from each rectangle are of lengths [5,3,5,5].
 The largest possible square is of length 5, and you can get it out of 3 rectangles.
 Sol)
+class Solution:
+    def countGoodRectangles(self, rectangles: List[List[int]]) -> int:
+        b=[]
+        count=0
+        for i in range(len(rectangles)):
+            b.append(min(rectangles[i][0],rectangles[i][1]))
+        c=max(b)
+        for i in b:
+            if i==c:
+                count+=1
+        return count
+OR
 class Solution:
     def countGoodRectangles(self, rectangles: List[List[int]]) -> int:
         
