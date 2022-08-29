@@ -1106,3 +1106,16 @@ Form a pair with nums[0] and nums[2] and remove them from nums. Now, nums = [2,2
 Form a pair with nums[0] and nums[1] and remove them from nums. Now, nums = [2].
 No more pairs can be formed. A total of 3 pairs have been formed, and there is 1 number leftover in nums.
 Sol)
+class Solution:
+    def numberOfPairs(self, nums: List[int]) -> List[int]: 
+        output = []  # nums = [1,3,2,1,3,2,2]
+        pair = 0
+        unique = list(set(nums)) # [1,3,2] get unique elements from nums
+        for i in range(len(unique)):
+            count = nums.count(unique[i])  # count no of element in nums
+            if count % 2 !=0:
+                output.append(unique[i]) # if count is odd, after pairing one element will remain. Append that to output list 
+            pair += (count)//2 # get no of pairs
+        return [pair,len(output)] # output = [2]
+                        
+                
