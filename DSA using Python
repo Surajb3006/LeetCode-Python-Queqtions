@@ -1117,5 +1117,34 @@ class Solution:
                 output.append(unique[i]) # if count is odd, after pairing one element will remain. Append that to output list 
             pair += (count)//2 # get no of pairs
         return [pair,len(output)] # output = [2]
+Q41)Given an integer array nums, return the greatest common divisor of the smallest number and largest number in nums.
+The greatest common divisor of two numbers is the largest positive integer that evenly divides both numbers.
+Example 1:
+Input: nums = [2,5,6,9,10]
+Output: 2
+Explanation:
+The smallest number in nums is 2.
+The largest number in nums is 10.
+The greatest common divisor of 2 and 10 is 2.
+Sol)
+class Solution:
+    def findGCD(self, nums: List[int]) -> int:
+        small = min(nums)
+        large = max(nums)
+        for i in range(small, 0, -1):
+            if small % i == 0 and large % i == 0:
+                return i
+Q42)2089. Find Target Indices After Sorting Array
+You are given a 0-indexed integer array nums and a target element target.
+A target index is an index i such that nums[i] == target.
+Return a list of the target indices of nums after sorting nums in non-decreasing order. If there are no target indices, return an empty list. The returned list must be sorted in increasing order.
+Example 1:
+Input: nums = [1,2,5,2,3], target = 2
+Output: [1,2]
+Explanation: After sorting, nums is [1,2,2,3,5].
+The indices where nums[i] == 2 are 1 and 2.
+Sol)
+
+        
                         
                 
