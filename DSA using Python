@@ -1204,8 +1204,91 @@ class Solution:
             if len(str(i))%2==0:
                 count+=1
         return count
-
-
+Q46)942. DI String Match
+A permutation perm of n + 1 integers of all the integers in the range [0, n] can be represented as a string s of length n where:
+s[i] == 'I' if perm[i] < perm[i + 1], and
+s[i] == 'D' if perm[i] > perm[i + 1].
+Given a string s, reconstruct the permutation perm and return it. If there are multiple valid permutations perm, return any of them.
+Example 1:
+Input: s = "IDID"
+Output: [0,4,1,3,2]
+Example 2:
+Input: s = "III"
+Output: [0,1,2,3]
+Sol)
+class Solution:
+        def diStringMatch(self, S: str) -> List[int]:
+            n=len(S)
+            result=[]
+            initial=0
+            final=n
+            for i in range(n):
+                if S[i]=='I':
+                    result.append(initial)
+                    initial=initial+1
+                else:
+                    result.append(final)
+                    final=final-1
+            result.append(final)
+            return result
+Q47)561. Array Partition
+Given an integer array nums of 2n integers, group these integers into n pairs (a1, b1), (a2, b2), ..., (an, bn) such that the sum of min(ai, bi) for all i is maximized. Return the maximized sum.
+Example 1:
+Input: nums = [1,4,3,2]
+Output: 4
+Explanation: All possible pairings (ignoring the ordering of elements) are:
+1. (1, 4), (2, 3) -> min(1, 4) + min(2, 3) = 1 + 2 = 3
+2. (1, 3), (2, 4) -> min(1, 3) + min(2, 4) = 1 + 2 = 3
+3. (1, 2), (3, 4) -> min(1, 2) + min(3, 4) = 1 + 3 = 4
+So the maximum possible sum is 4.
+Sol)
+class Solution:
+    def arrayPairSum(self, nums: List[int]) -> int:
+        nums.sort()
+        sum_ = 0
+        for i in range(0,len(nums),2):
+            sum_ += nums[i]
+        return sum_
+Q48)1450. Number of Students Doing Homework at a Given Time
+Given two integer arrays startTime and endTime and given an integer queryTime.
+The ith student started doing their homework at the time startTime[i] and finished it at time endTime[i].
+Return the number of students doing their homework at time queryTime. More formally, return the number of students where queryTime lays in the interval [startTime[i], endTime[i]] inclusive.
+Example 1:
+Input: startTime = [1,2,3], endTime = [3,2,7], queryTime = 4
+Output: 1
+Explanation: We have 3 students where:
+The first student started doing homework at time 1 and finished at time 3 and wasn't doing anything at time 4.
+The second student started doing homework at time 2 and finished at time 2 and also wasn't doing anything at time 4.
+The third student started doing homework at time 3 and finished at time 7 and was the only student doing homework at time 4.
+Sol)
+class Solution:
+    def busyStudent(self, startTime: List[int], endTime: List[int], queryTime: int) -> int:
+        count = 0
+        for i, j in zip(startTime, endTime):
+            if queryTime >= i and queryTime <= j:
+                count += 1
+        return count
+Q49)905. Sort Array By Parity
+Given an integer array nums, move all the even integers at the beginning of the array followed by all the odd integers.
+Return any array that satisfies this condition.
+Example 1:
+Input: nums = [3,1,2,4]
+Output: [2,4,3,1]
+Explanation: The outputs [4,2,3,1], [2,4,1,3], and [4,2,1,3] would also be accepted.
+Sol)
+class Solution(object):
+    def sortArrayByParity(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        res = []
+        for i in nums:
+            if i%2 == 0:
+                res.insert(0, i)
+            else:
+                res.append(i)
+        return res
 
 
 
