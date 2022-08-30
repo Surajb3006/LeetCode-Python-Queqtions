@@ -1289,7 +1289,24 @@ class Solution(object):
             else:
                 res.append(i)
         return res
-
-
+Q50)961. N-Repeated Element in Size 2N Array
+You are given an integer array nums with the following properties:
+nums.length == 2 * n.
+nums contains n + 1 unique elements.
+Exactly one element of nums is repeated n times.
+Return the element that is repeated n times.
+Example 1:
+Input: nums = [1,2,3,3]
+Output: 3
+Sol)
+class Solution:
+    def repeatedNTimes(self, nums: List[int]) -> int:
+        
+        list1 = []
+        for i in nums :
+            if i in list1 :
+                return i
+            else :
+                list1.append(i)
 
 
