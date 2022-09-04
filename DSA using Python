@@ -1308,6 +1308,12 @@ class Solution:
                 return i
             else :
                 list1.append(i)
+or
+class Solution:
+    def repeatedNTimes(self, nums: List[int]) -> int:
+        for i in range(len(nums)):
+            if nums.count(nums[i])>1:
+                return nums[i]
 Q51)1748. Sum of Unique Elements
 You are given an integer array nums. The unique elements of an array are the elements that appear exactly once in the array.
 Return the sum of all the unique elements of nums.
