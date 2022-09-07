@@ -1638,4 +1638,60 @@ class Solution:
         set13 = set1.intersection(set3)
         
         return (set12.union(set23)).union(set13)
+Q64)1217. Minimum Cost to Move Chips to The Same Position
+We have n chips, where the position of the ith chip is position[i].
+We need to move all the chips to the same position. In one step, we can change the position of the ith chip from position[i] to:
+position[i] + 2 or position[i] - 2 with cost = 0.
+position[i] + 1 or position[i] - 1 with cost = 1.
+Return the minimum cost needed to move all the chips to the same position.
+Example 1:
+Input: position = [1,2,3]
+Output: 1
+Explanation: First step: Move the chip at position 3 to position 1 with cost = 0.
+Second step: Move the chip at position 2 to position 1 with cost = 1.
+Total cost is 1.
+Sol)
+class Solution:
+    def minCostToMoveChips(self, position: List[int]) -> int:
+        # """
+        # count_even is the number of coins in even pos
+        # count_odd is the number of coins in odd pos
+        # """
+        count_odd = count_even = 0
+        for pos in position:
+            if(pos%2==0):
+                count_even += 1
+            else:
+                count_odd += 1
+        # """
+        # Directly Jump to step 4 as cost of step 1- step 3 is 0
+        # """
+        return min(count_odd,count_even)
+Q65)1460. Make Two Arrays Equal by Reversing Sub-arrays
+You are given two integer arrays of equal length target and arr. In one step, you can select any non-empty sub-array of arr and reverse it. You are allowed to make any number of steps.
+Return true if you can make arr equal to target or false otherwise.
+Example 1:
+Input: target = [1,2,3,4], arr = [2,4,1,3]
+Output: true
+Explanation: You can follow the next steps to convert arr to target:
+1- Reverse sub-array [2,4,1], arr becomes [1,4,2,3]
+2- Reverse sub-array [4,2], arr becomes [1,2,4,3]
+3- Reverse sub-array [4,3], arr becomes [1,2,3,4]
+There are multiple ways to convert arr to target, this is not the only way to do so.
+Sol)
+class Solution:
+    def canBeEqual(self, target: List[int], arr: List[int]) -> bool:
+        d1={}
+        d2={}
+        for i in target:
+            if i in d1:
+                d1[i]+=1
+            else:
+                d1[i]=1
+        for i in arr:
+            if i in d2:
+                d2[i]+=1
+            else:
+                d2[i]=1
+        return (d1==d2)
 
